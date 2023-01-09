@@ -33,13 +33,47 @@ const a_text = document.getElementById('a_text')
 const b_text = document.getElementById('b_text')
 const c_text = document.getElementById('c_text')
 const submitBtn = document.getElementById('submit')
-
+const button = document.getElementById('startButton');
 let currentQuiz = 0
 let score = 0
+var secondsLeft = 60;
+var timePenalization = 10;
 
-loadQuiz()
+
+document.getElementById('showHideQA').style.display = "none";
+document.getElementById('question').style.display = "none";
+document.getElementById('submit').style.display = "none";
+
+
+button.addEventListener('click', startTimer);
+button.addEventListener('click', loadQuiz);
+
+
+function startTimer() {
+    var timeEl = document.querySelector(".time");
+    var timerInterval = setInterval(function () {
+        secondsLeft--;
+        timeEl.textContent = secondsLeft + " seconds left.";
+
+
+        if (secondsLeft <= 0)
+            function endQuiz() {
+                clearInterval(timerInterval);
+                quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+                <button onclick="location.reload()">Reload</button>
+                `}
+        endQuiz();
+    }, 1000)
+}
 
 function loadQuiz() {
+    document.getElementById("title").style.display = "none";
+    document.getElementById("instructions").style.display = "none";
+    document.getElementById("startButton").style.display = "none";
+    document.getElementById('showHideQA').style.display = "block";
+    document.getElementById('question').style.display = "block";
+    document.getElementById('submit').style.display = "block";
     deselectAnswers()
     const currentQuizData = quizData[currentQuiz]
 
@@ -72,17 +106,19 @@ submitBtn.addEventListener('click', () => {
     if (answer) {
         if (answer === quizData[currentQuiz].correctAnswer) {
             score++
+            currentQuiz++
+        } else {
+            secondsLeft = secondsLeft - timePenalization
         }
 
-        currentQuiz++
 
         if (currentQuiz < quizData.length) {
             loadQuiz()
         } else {
             quiz.innerHTML = `
-                <h2>Your answered ${score}/${quizData.length} questions correctly</h2>
+            <h2> You answered ${score} /${quizData.length} questions correctly</ >
                 <button onclick="location.reload()">Reload</button>
-                `
+        `
         }
     }
 })
