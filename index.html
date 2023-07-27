@@ -10,7 +10,12 @@
 
   <body>
     <div class="quiz-container" id="quiz">
-      <h1 id="title">CODE QUIZ</h1>
+      <div id="header">
+        <h2>Timer: <span class="time"></span></h2>
+        <h1 id="title">CODE QUIZ</h1>
+        <h2>Score: <span id="score">0</span></h2>
+      </div>
+
       <p id="instructions">
         Put your coding knowledge into the test.<br /><span>BEWARE</span>,
         you'll get a 10 seconds penalization if you answer wrong!
@@ -32,7 +37,6 @@
           <label for="c" id="c_text">Question</label>
         </li>
       </ul>
-      <h2 class="time" style="text-align: center"></h2>
 
       <button id="startButton">Start Quiz</button>
       <button id="submit">Submit</button>
