@@ -1,43 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>| Code Quiz |</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="quiz-container" id="quiz">
-        <div class="quiz-header">
-            <h1 id="title">CODE QUIZ</h1>
-            <p id="instructions">Put your coding knowledge into the test.<br><span>BEWARE</span>, you'll get a 10
-                seconds penalization if you answer wrong!</p>
-            <h2 id="question">Question text</h2>
-            <ul id="showHideQA">
-                <li>
-                    <input type="radio" name="answer" id="a" class="answer">
-                    <label for="a" id="a_text">Question</label>
-                </li>
+      <h1 id="title">CODE QUIZ</h1>
+      <p id="instructions">
+        Put your coding knowledge into the test.<br /><span>BEWARE</span>,
+        you'll get a 10 seconds penalization if you answer wrong!
+      </p>
+      <h2 id="question">Question text</h2>
+      <ul id="showHideQA">
+        <li>
+          <input type="radio" name="answer" id="a" class="answer" />
+          <label for="a" id="a_text">Question</label>
+        </li>
 
-                <li>
-                    <input type="radio" name="answer" id="b" class="answer">
-                    <label for="b" id="b_text">Question</label>
-                </li>
+        <li>
+          <input type="radio" name="answer" id="b" class="answer" />
+          <label for="b" id="b_text">Question</label>
+        </li>
 
-                <li>
-                    <input type="radio" name="answer" id="c" class="answer">
-                    <label for="c" id="c_text">Question</label>
-                </li>
-            </ul>
-            <h2 class="time" style="text-align:center;"></h2>
-        </div>
-        <button id="startButton">Start Quiz</button>
-        <button id="submit">Submit</button>
+        <li>
+          <input type="radio" name="answer" id="c" class="answer" />
+          <label for="c" id="c_text">Question</label>
+        </li>
+      </ul>
+      <h2 class="time" style="text-align: center"></h2>
+
+      <button id="startButton">Start Quiz</button>
+      <button id="submit">Submit</button>
     </div>
     <script src="./assets/js/script.js"></script>
-</body>
-
+  </body>
 </html>
