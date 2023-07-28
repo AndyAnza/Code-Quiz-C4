@@ -49,12 +49,14 @@ const c_text = document.getElementById("c_text");
 const submitBtn = document.getElementById("submit");
 const button = document.getElementById("startButton");
 const scoreElement = document.getElementById("score");
+const timeEl = document.querySelector(".time");
 
 //variables for timer and score
 let currentQuiz = 0;
 let score = 0;
 var secondsLeft = 60;
 var timePenalization = 10;
+let timerInterval;
 
 //hides the questions and answers before the quiz starts
 document.getElementById("showHideQA").style.display = "none";
@@ -63,25 +65,23 @@ document.getElementById("submit").style.display = "none";
 
 //by clicking the start button the eventlisteners will make the timer start and will show the questions and answers
 button.addEventListener("click", startTimer);
-button.addEventListener("click", loadQuiz);
 
 function startTimer() {
-  var timeEl = document.querySelector(".time");
-  var timerInterval = setInterval(function () {
-    secondsLeft--;
-    timeEl.textContent = secondsLeft + " seconds left."; //shows on screen the time remaining
+  timerInterval = setInterval(updateTimer, 1000);
+}
 
-    if (secondsLeft <= 0)
-      //if the time's up the game will end and the h2 message will show with the user score
-      function endQuiz() {
-        clearInterval(timerInterval);
-        quiz.innerHTML = `
-                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
-                <button onclick="location.reload()">Reload</button>
-                `;
-      }
-    endQuiz();
-  }, 1000);
+function updateTimer() {
+  secondsLeft--;
+  timeEl.textContent = secondsLeft + " seconds left."; //shows on screen the time remaining
+  loadQuiz();
+  //if the time's up the game will end and the h2 message will show with the user score
+  if (secondsLeft < 0) {
+    clearInterval(timerInterval);
+    quiz.innerHTML = `
+          <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+          <button onclick="location.reload()">Reload</button>
+          `;
+  }
 }
 
 //this function loads the quiz Q&A and will hide the instructions and start button
@@ -92,7 +92,6 @@ function loadQuiz() {
   document.getElementById("showHideQA").style.display = "block";
   document.getElementById("question").style.display = "block";
   document.getElementById("submit").style.display = "block";
-  deselectAnswers();
   const currentQuizData = quizData[currentQuiz];
 
   questionEl.innerText = currentQuizData.question; //displays questions
@@ -104,16 +103,13 @@ function loadQuiz() {
 function deselectAnswers() {
   answerEls.forEach((answerEls) => (answerEls.checked = false));
 }
-
 function getSelected() {
   let answer;
-
   answerEls.forEach((answerEls) => {
     if (answerEls.checked) {
       answer = answerEls.id;
     }
   });
-
   return answer;
 }
 
@@ -127,14 +123,13 @@ submitBtn.addEventListener("click", () => {
       score++;
       scoreElement.innerText = score;
       currentQuiz++;
+      deselectAnswers();
     } else {
       secondsLeft = secondsLeft - timePenalization;
     }
 
     //it loads all the Q&As and if the user has already answered all the questions it'll get its final score and a message will be generated
-    if (currentQuiz < quizData.length) {
-      loadQuiz();
-    } else {
+    if (currentQuiz >= quizData.length) {
       quiz.innerHTML = `
             <h2> You answered ${score} /${quizData.length} questions correctly</ >
                 <button onclick="location.reload()">Reload</button>
